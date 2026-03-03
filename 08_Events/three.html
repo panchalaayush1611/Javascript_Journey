@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Async Project | Chai aur code</title>
+</head>
+<body style="background-color: #212121; color: aliceblue;">
+    
+    <h1>BMW is German made</h1>
+    <button id="start">Start</button>
+    <button id="stop">Stop</button>
+
+</body>
+
+<script>
+
+
+    // setInterval() :- 
+    // for eg - give me 2 seconds of interval and i will do that continuesoulsy every 2 second
+    // method is a built-in window function used to repeatedly execute a specified function or code snippet at fixed time intervals. This is particularly useful for tasks that require continuous, periodic execution, such as updating a digital clock, running animations, or fetching real-time data.
+
+    // way - 1 of using setInterval
+    setInterval(function(){
+        console.log('Aayush Panchal', Date.now());  
+    }, 1000) // 1000 means, work what i told you to do after 1 second, this event will working continuously... it will never stop until we do
+    
+    // way - 2 of using setInterval
+    const sayDateName = function(){
+        console.log('Aayush Panchal', Date.now());  
+    }
+    setInterval(sayDateName, 1000) // we just passed the reference, like we have seen in setTimeout() also
+
+    // way - 3 of using setInterval
+    const sayDateNameChange = function(str){
+        console.log(str, Date.now());  
+    }
+    const intervalId = setInterval(sayDateNameChange, 1000, "hiii") // this is how we can use the third parameter, here we have changed the text Aayush Panchal to hiii
+
+    // this is continuously going on..! how we can stop that? - 
+    // throught clearInterval()
+    clearInterval(intervalId)
+
+    // now go to stackblitz, link is in 07_Projects folder, inside README.md file (https://stackblitz.com/edit/dom-project-chaiaurcode?file=index.html)
+
+</script>
+
+</html>

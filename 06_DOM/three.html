@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DOM with Chai aur code</title>
+</head>
+
+<body style="background-color: #212121; color: #fff;">
+
+
+
+</body>
+
+<script>
+
+    const createId = document.createElement('div')
+    console.log(createId);
+    createId.id = 'named' // and //
+    createId.id = Math.random() * 100
+    createId.className = 'div-class'
+    createId.setAttribute('title', 'setup title') // works in key and value pair
+    createId.style.backgroundColor = 'orange'
+    createId.style.padding = '12px'
+
+    // creating a textnode for us
+    // createId.innerHTML = 'Javascript' // this is also true method //
+    const textNodeMake = document.createTextNode("Javascript")
+    createId.appendChild(textNodeMake) // this is also a true method, but optimized one //
+    // now how can we attach to the main page?
+    document.body.appendChild(textNodeMake)
+
+</script>
+
+</html>

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Async Project | Chai aur code</title>
+</head>
+<body style="background-color: #212121; color: aliceblue;">
+    
+    <h1>Aayush Panchal</h1>
+    <button id="stop">Stop</button>
+
+</body>
+
+<script>
+
+    // setTimeout() :-
+    // it's a method that calls APIs (it's a function actually)
+    // for eg - give me 2 seconds of timeout and i will do that work once only after that 2 second
+    // basically here we take timeout by setting it for us, that give me this much of time like that
+    // a global function used to schedule the execution of a function or a specified piece of code after a given delay, measured in milliseconds
+
+    // SYNTAX - const timeoutID = setTimeout(function, delay, [arg1, arg2, ...]);
+
+    setTimeout(function(){
+        console.log('Aayush');
+    }, 2000) // here 2000 is 2 seconds in our requirement, here timeout is provided into milisecond
+
+    // writing upper code in different and also in logical way 
+    const sayAayush = function(){
+        console.log('Aayush')
+    }
+    setTimeout(sayAayush, 2000) // here we wrote sayAayush as reference, this is handler that's why, if i write sayAayush() this will call the function, we don't want that, we just want to give refence! (this will work same as the upper one is doing)
+
+    // now i want that the text changes after 2 sec Aayush should be change
+    const changeText = function(){
+        document.querySelector('h1').innerHTML = "Virat is KING of CRICKET"
+    }
+    const stopMe = setTimeout(changeText, 2000)
+
+    // clearTimeout() :- 
+    // method is used to cancel a timeout previously established by a call to the setTimeout() function. If the specified delay has not yet passed, the function scheduled to execute will be prevented from running.
+    // it basically clears the timeout which we have set, by giving reference we can do that
+    // clearTimeout(stopMe)
+    
+    // we have to set it on an event
+    document.querySelector('#stop').addEventListener('click', function(){
+        clearTimeout(stopMe)
+        console.log('STOPPED!!')
+    })
+
+</script>
+
+</html>

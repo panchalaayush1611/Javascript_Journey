@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>API Requests | Chai aur code</title>
+</head>
+<body style="background-color: #212121; color: aliceblue;">
+    
+    <h1>Hello Aayush Panchal</h1>
+
+</body>
+
+<script>
+
+    // Documentation about xmlhttprequest - (https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest)
+
+    // States - The XMLHttpRequest.readyState property returns the state an XMLHttpRequest client is in. An XHR client exists in one of the following states:
+    // link - (https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest/readyState)
+
+    // Value    State	            Description
+    // 0	    UNSENT	            Client has been created. open() not called yet.
+    // 1	    OPENED	            open() has been called.
+    // 2	    HEADERS_RECEIVED	send() has been called, and headers and status are available.
+    // 3	    LOADING	            Downloading; responseText holds partial data.
+    // 4	    DONE	            The operation is complete.
+
+    // <---------------------------------------- ------------------------------------------>
+    
+    // what is XMLHttpRequest - The XMLHttpRequest (XHR) is a built-in JavaScript API that enables web pages to make HTTP requests to a server and process the responses asynchronously, without needing to reload the entire web page.
+    
+    // Modern Alternatives - While XMLHttpRequest was a groundbreaking API, the more modern and flexible Fetch API is now the preferred method for making HTTP requests in new projects. Fetch uses Promises for cleaner, more straightforward asynchronous handling, though XHR is still used in legacy codebases or when specific features like monitoring upload progress are required.
+    
+    // <---------------------------------------- ------------------------------------------>
+
+    const requestURL = 'https://api.github.com/users/panchalaayush1611'
+    const xhr = new XMLHttpRequest() // we use new keyword to make it, basically we want the reference here
+    // now 'open()' send the request
+    xhr.open('GET', requestURL) // it has two parameters, methods and strings, method means what type of request we want to send, like GET, PUT, POST like that
+
+    // basically the states get changed on every work, like open, received, load, done like this, now how we can track the states?
+    xhr.onreadystatechange = function(){
+        console.log(xhr.readyState); // 1 states it was there, now this will show us total 3 states, 2, 3, 4 - received, load, done 
+
+        // we saw that states are changing, how can i detect the state? here's how - 
+        if(xhr.readyState === 4){
+            // now i want to use or see individual values like followers from my data
+            const data = JSON.parse(this.responseText) // JSON.parse() is because our data was in object and we want in JSON format so we have to do parsing
+            console.log(data);
+            console.log(`following are ${data.following}`);
+            console.log(`followers are ${data.followers}`);
+            
+            console.log(); // this because we are telling that yes this only i want, yes i was talking for this context like that
+        }
+    } // basically it changes the state by using the upper 'onreadystatechange'
+
+    // now we have to call the open() then after the request will be sent
+    xhr.send()
+
+
+</script>
+
+</html>

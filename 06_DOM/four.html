@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DOM | Chai aur code</title>
+</head>
+<body style="background-color: #212121; color: #fff;">
+    
+    <ul class="language">
+        <li>javascript</li>
+    </ul>
+
+</body>
+
+<script>
+
+    // adding languages name using JS..!
+    function addLanguage(langName){
+        const li = document.createElement('li')
+        li.innerHTML = `${langName}`
+        // this is not really optimised because here we have 2 3 values, and if we do appendChild it has to traverse the whole tree again and again..!
+        document.querySelector(".language").appendChild(li)
+    }
+    addLanguage("python")
+    addLanguage("c++")
+    
+    // let's add languages in optimised way so that it shouldn't have to traverse whole tree again and again!
+    // this is same but the way of using and making is optimised
+    function addOptiLanguage (langName){
+        const li = document.createElement('li');
+        li.appendChild(document.createTextNode(langName))
+        document.querySelector(".language").appendChild(li)
+    }
+    addOptiLanguage("golang")
+
+    // how we can EDIT the values?
+    const editChild = document.querySelector('li:nth-child(2)')
+    const newLi = document.createElement('li')
+    newLi.textContent = "ruby"
+    editChild.replaceWith(newLi)
+
+    const firstLang = document.querySelector('li:first-child')
+    firstLang.outerHTML = '<li>reactjs</li>'
+
+    // how we can DELETE the values?
+    // we want to remove the 'golang'
+    lastLang = document.querySelector('li:last-child')
+    lastLang.remove()
+
+</script>
+
+</html>

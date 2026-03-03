@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DOM | Chai aur code</title>
+    <style>
+        .day {
+            font-size: 38px;
+        }
+    </style>
+</head>
+
+<body style="background-color: #212121; color: #fff;">
+
+    <div class="parent">
+        <div class="day">Monday</div>
+        <div class="day">Tuesday</div>
+        <div class="day">Wednesday</div>
+        <div class="day">Thursday</div>
+    </div>
+
+</body>
+
+
+<script>
+
+    // outputs in console
+
+    const classSelect = document.querySelector('.parent');
+    // console.log(classSelect);
+
+    // we can check the how many children the parent got.
+    // every element has it's children..! like most off have
+    // console.log(classSelect.children[1].innerHTML); // will get HTMLCollection, which is almost like an array.
+    
+    for (let i = 0; i < classSelect.children.length; i++) {
+        // console.log(classSelect.children[i].innerHTML);
+    }
+
+    classSelect.children[1].style.color = "orange"
+    classSelect.style.color = "green"
+    // console.log(classSelect.firstElementChild);
+    // console.log(classSelect.lastElementChild);
+    
+    const findDayOne = document.querySelector('.day')
+    // console.log(findDayOne);
+    // console.log(findDayOne.parentElement);
+    // console.log(findDayOne.nextElementSibling);
+    
+    console.log("Nodes", classSelect.childNodes); // this shows the whole tree structure, every thing has it's own significance, mean, considaration of a line, even a small break line too
+    
+
+</script>
+
+
+</html>
