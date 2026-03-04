@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Counter App</title>
+    <meta name="description" content="A sleek, modern counter application built with JavaScript">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap"
+        rel="stylesheet">
+    <style>
+        *,
+        *::before,
+        *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bg-primary: #0f0f1a;
+            --bg-card: rgba(255, 255, 255, 0.04);
+            --bg-card-hover: rgba(255, 255, 255, 0.06);
+            --border-subtle: rgba(255, 255, 255, 0.08);
+            --text-primary: #f0f0f5;
+            --text-secondary: #8a8a9a;
+            --accent-blue: #6c8cff;
+            --accent-blue-glow: rgba(108, 140, 255, 0.3);
+            --accent-red: #ff6c6c;
+            --accent-red-glow: rgba(255, 108, 108, 0.25);
+            --accent-green: #6cffb4;
+            --accent-green-glow: rgba(108, 255, 180, 0.25);
+            --accent-amber: #ffb86c;
+            --accent-amber-glow: rgba(255, 184, 108, 0.25);
+        }
+
+        body {
+            font-family: "Inter", sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            position: relative;
+        }
+
+        /* Animated background gradient orbs */
+        body::before,
+        body::after {
+            content: '';
+            position: fixed;
+            border-radius: 50%;
+            filter: blur(120px);
+            opacity: 0.35;
+            z-index: 0;
+            animation: floatOrb 12s ease-in-out infinite alternate;
+        }
+
+        body::before {
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, var(--accent-blue) 0%, transparent 70%);
+            top: -150px;
+            left: -100px;
+        }
+
+        body::after {
+            width: 450px;
+            height: 450px;
+            background: radial-gradient(circle, var(--accent-red) 0%, transparent 70%);
+            bottom: -150px;
+            right: -100px;
+            animation-delay: -6s;
+        }
+
+        @keyframes floatOrb {
+            0% {
+                transform: translate(0, 0) scale(1);
+            }
+
+            50% {
+                transform: translate(40px, -30px) scale(1.1);
+            }
+
+            100% {
+                transform: translate(-20px, 20px) scale(0.95);
+            }
+        }
+
+        .container {
+            position: relative;
+            z-index: 1;
+            width: 420px;
+            background: var(--bg-card);
+            border: 1px solid var(--border-subtle);
+            border-radius: 28px;
+            padding: 48px 40px 40px;
+            backdrop-filter: blur(40px);
+            -webkit-backdrop-filter: blur(40px);
+            box-shadow:
+                0 0 0 1px rgba(255, 255, 255, 0.03) inset,
+                0 24px 80px rgba(0, 0, 0, 0.4),
+                0 8px 32px rgba(0, 0, 0, 0.3);
+            animation: cardEntry 0.8s cubic-bezier(0.16, 1, 0.3, 1) both;
+        }
+
+        @keyframes cardEntry {
+            from {
+                opacity: 0;
+                transform: translateY(30px) scale(0.96);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        .app-label {
+            text-transform: uppercase;
+            font-size: 0.7rem;
+            font-weight: 600;
+            letter-spacing: 3px;
+            color: var(--accent-blue);
+            text-align: center;
+            margin-bottom: 28px;
+        }
+
+        /* Counter display */
+        .counter-display {
+            text-align: center;
+            margin-bottom: 36px;
+        }
+
+        .count {
+            font-size: 6rem;
+            font-weight: 800;
+            line-height: 1;
+            background: linear-gradient(135deg, var(--text-primary) 0%, var(--accent-blue) 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            transition: transform 0.15s cubic-bezier(0.34, 1.56, 0.64, 1);
+            user-select: none;
+        }
+
+        .count:active {
+            transform: scale(0.95);
+        }
+
+        /* Buttons row */
+        .buttons-row {
+            display: flex;
+            gap: 12px;
+            justify-content: center;
+            margin-bottom: 28px;
+        }
+
+        .btn {
+            border: none;
+            cursor: pointer;
+            font-family: "Inter", sans-serif;
+            font-weight: 600;
+            font-size: 1.1rem;
+            border-radius: 16px;
+            transition: all 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border-radius: inherit;
+            opacity: 0;
+            transition: opacity 0.2s ease;
+            background: radial-gradient(circle at center, rgba(255, 255, 255, 0.15), transparent 70%);
+        }
+
+        .btn:hover::after {
+            opacity: 1;
+        }
+
+        .btn:active {
+            transform: scale(0.93);
+        }
+
+        .sub-btn,
+        .add-btn {
+            width: 72px;
+            height: 72px;
+            font-size: 1.6rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .sub-btn {
+            background: linear-gradient(135deg, #ff4b4b, #ff6c6c);
+            color: #fff;
+            box-shadow: 0 4px 20px var(--accent-red-glow);
+        }
+
+        .sub-btn:hover {
+            box-shadow: 0 6px 30px var(--accent-red-glow), 0 0 0 3px rgba(255, 108, 108, 0.15);
+            transform: translateY(-2px);
+        }
+
+        .add-btn {
+            background: linear-gradient(135deg, #4b7bff, #6c8cff);
+            color: #fff;
+            box-shadow: 0 4px 20px var(--accent-blue-glow);
+        }
+
+        .add-btn:hover {
+            box-shadow: 0 6px 30px var(--accent-blue-glow), 0 0 0 3px rgba(108, 140, 255, 0.15);
+            transform: translateY(-2px);
+        }
+
+        /* Divider */
+        .divider {
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--border-subtle), transparent);
+            margin-bottom: 24px;
+        }
+
+        /* Step control */
+        .step-control {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 24px;
+            padding: 0 4px;
+        }
+
+        .step-label {
+            font-size: 0.8rem;
+            font-weight: 500;
+            color: var(--text-secondary);
+            letter-spacing: 0.5px;
+        }
+
+        .numberField {
+            width: 80px;
+            height: 42px;
+            background: rgba(255, 255, 255, 0.06);
+            border: 1px solid var(--border-subtle);
+            border-radius: 12px;
+            color: var(--text-primary);
+            font-family: "Inter", sans-serif;
+            font-size: 1rem;
+            font-weight: 600;
+            text-align: center;
+            outline: none;
+            transition: all 0.25s ease;
+            -moz-appearance: textfield;
+        }
+
+        .numberField::-webkit-inner-spin-button,
+        .numberField::-webkit-outer-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+
+        .numberField:focus {
+            border-color: var(--accent-blue);
+            box-shadow: 0 0 0 3px var(--accent-blue-glow);
+            background: rgba(255, 255, 255, 0.08);
+        }
+
+        /* Reset button */
+        .reset-btn {
+            width: 100%;
+            padding: 14px 0;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--border-subtle);
+            border-radius: 14px;
+            color: var(--text-secondary);
+            font-family: "Inter", sans-serif;
+            font-size: 0.85rem;
+            font-weight: 500;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: all 0.25s ease;
+        }
+
+        .reset-btn:hover {
+            background: rgba(255, 184, 108, 0.08);
+            border-color: rgba(255, 184, 108, 0.3);
+            color: var(--accent-amber);
+            box-shadow: 0 4px 20px var(--accent-amber-glow);
+        }
+
+        .reset-btn:active {
+            transform: scale(0.97);
+        }
+
+        /* Responsive */
+        @media (max-width: 480px) {
+            .container {
+                width: calc(100% - 32px);
+                padding: 36px 28px 28px;
+                border-radius: 24px;
+            }
+
+            .count {
+                font-size: 4.5rem;
+            }
+
+            .sub-btn,
+            .add-btn {
+                width: 64px;
+                height: 64px;
+                font-size: 1.4rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+        <div class="app-label">Counter</div>
+
+        <div class="counter-display">
+            <h1 class="count">0</h1>
+        </div>
+
+        <div class="buttons-row">
+            <button class="btn sub-btn" aria-label="Decrease count">−</button>
+            <button class="btn add-btn" aria-label="Increase count">+</button>
+        </div>
+
+        <div class="divider"></div>
+
+        <div class="step-control">
+            <span class="step-label">Step size</span>
+            <input type="number" class="numberField" value="1" min="1" aria-label="Step size">
+        </div>
+
+        <button class="btn reset-btn">Reset</button>
+    </div>
+
+    <script src="counter.js" defer></script>
+</body>
+
+</html>
