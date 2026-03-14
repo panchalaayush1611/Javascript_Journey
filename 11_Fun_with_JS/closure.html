@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Closure aur chai</title>
+</head>
+
+<body style="background-color: #212121; color: white;">
+
+    <button id="orange">Orange</button>
+    <button id="green">Green</button>
+
+</body>
+<script>
+
+    // LEXICAL SCOPING :- 
+    // what is lexical scope? - Lexical scope means a function can access variables based on where it was written in the code (its position in the code).
+
+    // Function ko kaunse variables milenge wo depend karta hai code ke structure pe, na ki kaun call kar raha hai.
+
+    // parent can share their things to child but child cannot share with their siblings basically 2 childs cannot share eachother things but can take from parent and parents can't ask or use child's things vice versa..!
+
+    // from mdn - 
+    // function init() {
+    //     let name = "Mozilla";
+    //     function displayName() {
+    //         console.log(name);
+    //     }
+    //     displayName();
+    // }
+    // init();
+
+    // our try - 
+    function outer() {
+        let uname = "Aayush"
+        function inner() {
+            console.log("INNER", uname);
+        }
+        inner()
+    }
+    outer()
+    // console.log("TOO outer", uname);
+
+
+    // CLOSURE :- 
+    // what is cloure? - A closure happens when a function remembers variables from its outer scope even after the outer function has finished executing.
+    //  Function apne bahar ke variables ko YAAD rakhta hai — chahe bahar wala function khatam ho jaaye!
+    // eg - Socho tum school se ghar aaye —
+    /* 
+       School band ho gaya ❌
+
+       But tumhare paas school ka bag hai  ✅
+       Bag mein books hain                 ✅
+       Tum books padhh sakte ho            ✅
+
+       School khatam → but uski cheezein tumhare paas hain! 
+    */
+
+
+    // from mdn - 
+    // function makeFunc() {
+    //     const name = "Mozilla";
+    //     function displayName() {
+    //         console.log(name);
+    //     }
+    //     return displayName;
+    // }
+
+    // const myFunc = makeFunc();
+    // myFunc();
+
+    // our way - 
+    // EXAMPLE - 
+    // REAL LIFE IMPLEMENTATION - 
+
+    document.getElementById("orange").onclick = function () {
+        document.body.style.backgroundColor = `orange`
+    }
+    document.getElementById("green").onclick = function () {
+        document.body.style.backgroundColor = `green`
+    }
+
+    // what if someone told us to do same for 500 times, we will get mad so we make CLICK HANDLER
+    function clickHandler(color) {
+        // document.body.style.backgroundColor = `${color}` // this will not work, we have to write this in function and have to return that function
+
+        return function () {
+            document.body.style.backgroundColor = `${color}`
+        }
+    }
+
+</script>
+
+</html>
+
+// END OF JS SERIES BY HITESH (CHAI AUR CODE) SIR..!
+// THANK YOU SIR FOR TEACHING ME JS and i will do more, do high, will continue..!
